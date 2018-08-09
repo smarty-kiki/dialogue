@@ -18,14 +18,16 @@ if_has_exception(function ($ex) {
 });
 
 if_verify(function ($action, $args) {
-    return unit_of_work(function () use ($action, $args){
 
-        $data = call_user_func_array($action, $args);
+    $data = call_user_func_array($action, $args);
 
-        header('Content-type: application/json');
+    if (is_string($data)) {
+        return $data;
+    }
 
-        return json($data);
-    });
+    header('Content-type: application/json');
+
+    return json($data);
 });
 
 // init interceptor
@@ -39,6 +41,8 @@ if_not_found(function () {
 });
 
 // init controller
+include CONTROLLER_DIR.'/work.php';
+include CONTROLLER_DIR.'/talk.php';
 include CONTROLLER_DIR.'/index.php';
 
 // fix
