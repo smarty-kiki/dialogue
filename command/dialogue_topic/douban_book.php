@@ -16,7 +16,7 @@ dialogue_topic([
             $message = "在豆瓣共查到 $count 本与 '$book_query' 相关的图书，回复想查的序号：";
 
             foreach ($books as $no => $book) {
-                $message .= "\n$no. 《{$book['title']}》{$book['pubdate']} 出版";
+                $message .= "\n".($no + 1)." 《{$book['title']}》{$book['pubdate']} 出版";
             }
 
             $user_answer = dialogue_ask_and_wait($user_id, $message, null, 60);
