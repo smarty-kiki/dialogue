@@ -1,6 +1,7 @@
 <?php
 
 define('BUSINESS_WECHAT_CORPID', 'wwf3effabd6b904bb2');
+define('BUSINESS_WECHAT_CORPSECRET', 'z_ol9gewn1L9wVexQACEv64hFhG9LshLf2Uby9wfiDw');
 define('BUSINESS_WECHAT_CHAT_API_TOKEN', 'beDAqA5M1Q1U');
 define('BUSINESS_WECHAT_CHAT_API_ENCODING_ASE_KEY', 'MWSuUOIbQrxgjGQBHG077RHJN4GybzEOyjxhMX1TOhG');
 
@@ -9,18 +10,22 @@ function _business_wechat_access_token()
     static $cache_key = 'business_wechat_access_token';
 
     static $corpid = BUSINESS_WECHAT_CORPID;
-    static $secret = 'z_ol9gewn1L9wVexQACEv64hFhG9LshLf2Uby9wfiDw';
+    static $secret = BUSINESS_WECHAT_CORPSECRET;
 
     static $access_token = null;
 
     if (is_null($access_token)) {
+
         $access_token = cache_get($cache_key);
 
         if (! $access_token) {
+
             $info = remote_get_json("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$corpid&corpsecret=$secret", 3, 3);
 
             if (array_key_exists('access_token', $info)) {
+
                 $access_token = $info['access_token'];
+
                 cache_set($cache_key, $access_token, $info['expires_in'] - 5);
             } else {
                 throw new Exception($info['errmsg']);

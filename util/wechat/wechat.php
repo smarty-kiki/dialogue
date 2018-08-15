@@ -6,6 +6,39 @@ define('WECHAT_APP_SECRET', 'd2ee36a4a0c2f82954894a36c0a4b031');
 define('WECHAT_TOKEN', 'HelloWorld');
 define('WECHAT_ENCODING_AES_KEY', '0o9iORmjwPszqCzjZA5dqO4aA4nif2OmeyKnjBvPeFd');
 
+define('WEIXIN_API_DOMAIN', 'https://api.weixin.qq.com');
+
+function _wechat_access_token()
+{/*{{{*/
+    static $cache_key = 'wechat_access_token';
+
+    static $app_id = WECHAT_APP_ID;
+    static $app_secret = WECHAT_APP_SECRET;
+
+    static $access_token = null;
+
+    if (is_null($access_token)) {
+
+        $access_token = cache_get($cache_key);
+
+        if (! $access_token) {
+
+            $info = remote_get_json(WEIXIN_API_DOMAIN."/cgi-bin/token?grant_type=client_credential&appid=$app_id&secret=$app_secret", 3, 3);
+
+            if (array_key_exists('access_token', $info)) {
+
+                $access_token = $info['access_token'];
+
+                cache_set($cache_key, $access_token, $info['expires_in'] - 5);
+            } else {
+                throw new Exception($info['errmsg']);
+            }
+        }
+    }
+
+    return $access_token;
+}/*}}}*/
+
 function wechat_verify_url($msg_signature, $timestamp, $nonce, $echostr)
 {/*{{{*/
     static $token = WECHAT_TOKEN;
@@ -42,6 +75,18 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
             'type' => (string) $message->MsgType,
         ];
     }
+}/*}}}*/
+
+function wechat_reply_is_typing($user_id, bool $typing)
+{/*{{{*/
+    $access_token = _wechat_access_token();
+
+    $command = $typing ? 'Typing': 'CancelTyping';
+
+    return remote_post_json(WEIXIN_API_DOMAIN."/cgi-bin/message/custom/typing?access_token=$access_token", json_encode([
+        'touser' => $user_id,
+        'command' => $command,
+    ]), 3, 3);
 }/*}}}*/
 
 function wechat_reply_message($user_id, $content)
