@@ -19,18 +19,19 @@ dialogue_topic([
                 $message .= "\n".($no + 1)." 《{$book['title']}》{$book['pubdate']} 出版";
             }
 
-            $user_answer = dialogue_ask_and_wait($user_id, $message, null, 60);
+            do {
+                $user_answer = dialogue_ask_and_wait($user_id, $message, null, 60);
 
-            while ((! is_null($user_answer)) && (! array_key_exists($user_answer - 1, $books))) {
+                if (is_null($user_answer)) {
+                    return; // wait timeout
+                }
 
-                $user_answer = dialogue_ask_and_wait($user_id, "没有'$user_answer'", null, 60);
-            }
+                $no = $user_answer - 1;
+                $message = "没有 '$user_answer'";
 
-            if (is_null($user_answer)) {
-                return; // wait timeout
-            }
+            } while (! array_key_exists($no, $books));
 
-            $book = $books[$user_answer - 1];
+            $book = $books[$no];
 
         } else {
             $book = reset($books);
