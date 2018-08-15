@@ -6,7 +6,7 @@ define('WECHAT_APP_SECRET', 'd2ee36a4a0c2f82954894a36c0a4b031');
 define('WECHAT_TOKEN', 'HelloWorld');
 define('WECHAT_ENCODING_AES_KEY', '0o9iORmjwPszqCzjZA5dqO4aA4nif2OmeyKnjBvPeFd');
 
-define('WEIXIN_API_DOMAIN', 'https://api.weixin.qq.com');
+define('WECHAT_API_DOMAIN', 'https://api.weixin.qq.com');
 
 function _wechat_access_token()
 {/*{{{*/
@@ -23,7 +23,7 @@ function _wechat_access_token()
 
         if (! $access_token) {
 
-            $info = remote_get_json(WEIXIN_API_DOMAIN."/cgi-bin/token?grant_type=client_credential&appid=$app_id&secret=$app_secret", 3, 3);
+            $info = remote_get_json(WECHAT_API_DOMAIN."/cgi-bin/token?grant_type=client_credential&appid=$app_id&secret=$app_secret", 3, 3);
 
             if (array_key_exists('access_token', $info)) {
 
@@ -77,16 +77,33 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
     }
 }/*}}}*/
 
+function wechat_send_message($user_id, $content)
+{/*{{{*/
+    $access_token = _wechat_access_token();
+
+    $res = remote_post_json(WECHAT_API_DOMAIN."/cgi-bin/message/custom/send?access_token=$access_token", json_encode([
+        'touser' => $user_id,
+        'msgtype' => "text",
+        'text' => [
+            'content' => $content,
+        ],
+    ]));
+
+    return ! $res['errcode'];
+}/*}}}*/
+
 function wechat_reply_is_typing($user_id, bool $typing)
 {/*{{{*/
     $access_token = _wechat_access_token();
 
     $command = $typing ? 'Typing': 'CancelTyping';
 
-    return remote_post_json(WEIXIN_API_DOMAIN."/cgi-bin/message/custom/typing?access_token=$access_token", json_encode([
+    $res = remote_post_json(WECHAT_API_DOMAIN."/cgi-bin/message/custom/typing?access_token=$access_token", json_encode([
         'touser' => $user_id,
         'command' => $command,
     ]), 3, 3);
+
+    return ! $res['errcode'];
 }/*}}}*/
 
 function wechat_reply_message($user_id, $content)
