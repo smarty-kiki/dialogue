@@ -128,7 +128,6 @@ function business_wechat_decrypt_message($msg_signature, $timestamp, $nonce, $po
     $xml = simplexml_load_string($post_data);
 
     $encrypt_msg = (string) $xml->Encrypt;
-    $touser_name = (string) $xml->ToUserName;
 
     $signature = business_wechat_sha1($token, $timestamp, $nonce, $encrypt_msg);
 
