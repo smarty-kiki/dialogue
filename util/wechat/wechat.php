@@ -51,11 +51,11 @@ function wechat_reply_message($user_id, $content)
     $timestamp = time();
 
     return "<xml>
-        <ToUserName>< ![CDATA[".$user_id."] ]></ToUserName>
-        <FromUserName>< ![CDATA[".$from_user_id."] ]></FromUserName>
+        <ToUserName><![CDATA[".$user_id."]]></ToUserName>
+        <FromUserName><![CDATA[".$from_user_id."]]></FromUserName>
         <CreateTime>".$timestamp."</CreateTime>
-        <MsgType>< ![CDATA[text] ]></MsgType>
-        <Content>< ![CDATA[".$content."] ]></Content>
+        <MsgType><![CDATA[text]]></MsgType>
+        <Content><![CDATA[".$content."]]></Content>
     </xml>";
 }/*}}}*/
 
