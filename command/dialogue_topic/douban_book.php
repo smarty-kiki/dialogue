@@ -13,20 +13,15 @@ dialogue_topic([
 
         if (($count = count($books)) > 1) {
 
-            $message = "在豆瓣共查到 $count 本与 '$book_query' 相关的图书，回复想查的书名：";
+            $message = "在豆瓣共查到 $count 本与 '$book_query' 相关的图书，回复想查的序号：";
 
-            $books_indexed = [];
-
-            foreach ($books as $book) {
-                $title = $book['title'];
-
-                $message .= "\n$title";
-                $books_indexed[$title] = $book;
+            foreach ($books as $no => $book) {
+                $message .= "\n$no. {$book['title']} {$book['pubdate']}";
             }
 
             $user_answer = dialogue_ask_and_wait($user_id, $message, null, 60);
 
-            while ((! is_null($user_answer)) && (! array_key_exists($user_answer, $books_indexed))) {
+            while ((! is_null($user_answer)) && (! array_key_exists($user_answer - 1, $books))) {
 
                 $user_answer = dialogue_ask_and_wait($user_id, "没有'$user_answer'", null, 60);
             }
@@ -35,13 +30,13 @@ dialogue_topic([
                 return; // wait timeout
             }
 
-            $book = $books_indexed[$user_answer];
+            $book = $books[$user_answer - 1];
 
         } else {
             $book = reset($books);
         }
 
-        $answer = "{$book['title']} 这本书出版于 {$book['pubdate']}，豆瓣有 {$book['rating']['numRaters']} 给出 {$book['rating']['average']} 的平均分，图书摘要：\n{$book['summary']}";
+        $answer = "《{$book['title']}》在豆瓣图书有 {$book['rating']['numRaters']} 个读者评价，{$book['rating']['average']} 的平均分，图书摘要：\n{$book['summary']}";
 
         dialogue_say($user_id, $answer);
     } else {
