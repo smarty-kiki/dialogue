@@ -34,6 +34,7 @@ dialogue_topic([
             $book = $books[$no];
 
         } else {
+
             $book = reset($books);
         }
 
