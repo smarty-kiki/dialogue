@@ -20,7 +20,7 @@ dialogue_topic([
             }
 
             do {
-                $user_answer = dialogue_ask_and_wait($user_id, $message, null, 60);
+                $user_answer = dialogue_ask_and_wait($user_id, $message, '/^[1-9]\d*$/i', 60);
 
                 if (is_null($user_answer)) {
                     return; // wait timeout
