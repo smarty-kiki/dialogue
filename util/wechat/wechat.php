@@ -88,6 +88,16 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
                 'description' => (string) $message->Label,
             ],
         ];
+    case 'link':
+        return [
+            'type' => 'link',
+            'message' => [
+                'user_id' => (string) $message->FromUserName,
+                'title' => (string) $message->Title,
+                'description' => (string) $message->Description,
+                'url' => (string) $message->Url,
+            ],
+        ];
     default:
         return [
             'type' => (string) $message->MsgType,
