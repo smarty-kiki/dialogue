@@ -1,10 +1,10 @@
 <?php
 
-define('WECHAT_ID', 'pagoda_tech');
-define('WECHAT_APP_ID', 'wx72dd707ef1edfa1a');
-define('WECHAT_APP_SECRET', 'd2ee36a4a0c2f82954894a36c0a4b031');
+define('WECHAT_ID', 'kiki_assistant');
+define('WECHAT_APP_ID', 'wx8306a0c3b06a06af');
+define('WECHAT_APP_SECRET', '88c47a8c4977f2c2ff01c0c32ce7583e');
 define('WECHAT_TOKEN', 'HelloWorld');
-define('WECHAT_ENCODING_AES_KEY', '0o9iORmjwPszqCzjZA5dqO4aA4nif2OmeyKnjBvPeFd');
+define('WECHAT_ENCODING_AES_KEY', 'YknZQ8opfJ9T8gktkmPzeh26FUgo74rpi3LJO4uQH9L');
 
 define('WECHAT_API_DOMAIN', 'https://api.weixin.qq.com');
 
