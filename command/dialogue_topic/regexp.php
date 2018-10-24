@@ -8,11 +8,11 @@ dialogue_topic([
 
     $ask = '好，发我吧';
 
-    $is_over_closure = function ($answer) {
-        return ! array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的']);
-    };
+    while ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120)) {
 
-    while ($answer = dialogue_ask_and_wait($user_id, $ask, $is_over_closure, 120)) {
+        if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
+            return;
+        }
 
         if (starts_with($answer, '/')) {
             $pattern = $answer;
@@ -21,9 +21,9 @@ dialogue_topic([
         }
 
         if (is_null($pattern)) {
-            $ask = '收到，发我一下正则吧';
+            $ask = '收到['.$answer.']，发我一下正则吧';
         } elseif (is_null($subject)) {
-            $ask = '收到，发我一下测试值吧';
+            $ask = '收到['.$answer.']，发我一下测试值吧';
         } else {
             $matches = [];
             if (false === preg_match_all($pattern, $subject, $matches)) {
