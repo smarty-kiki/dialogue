@@ -78,6 +78,16 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
                 'content' => (string) $message->Recognition,
             ],
         ];
+    case 'location':
+        return [
+            'type' => 'location',
+            'message' => [
+                'user_id' => (string) $message->FromUserName,
+                'longitude' => (string) $message->Location_X,
+                'latitude' => (string) $message->Location_Y,
+                'description' => (string) $message->Label,
+            ],
+        ];
     default:
         return [
             'type' => (string) $message->MsgType,

@@ -17,7 +17,9 @@ if_post('/wechat/receive', function ()
     $message = $message_info['message'];
 
     switch ($type) {
+
     case 'text':
+
         $from_user_id = $message['user_id'];
 
         wechat_reply_is_typing($from_user_id, true);
@@ -31,11 +33,26 @@ if_post('/wechat/receive', function ()
         return $reply_message_string;
 
     case 'voice':
+
         $from_user_id = $message['user_id'];
 
         wechat_reply_is_typing($from_user_id, true);
 
         $reply_message = dialogue_push($from_user_id, $message['content'], true);
+
+        $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+
+        wechat_reply_is_typing($from_user_id, false);
+
+        return $reply_message_string;
+
+    case 'location':
+
+        $from_user_id = $message['user_id'];
+
+        wechat_reply_is_typing($from_user_id, true);
+
+        $reply_message = dialogue_push($from_user_id, $message['description'], true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 
