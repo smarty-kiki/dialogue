@@ -72,7 +72,7 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
         ];
     case 'voice':
         return [
-            'type' => 'text',
+            'type' => 'voice',
             'message' => [
                 'user_id' => (string) $message->FromUserName,
                 'content' => (string) $message->Recognition,
