@@ -11,7 +11,8 @@ dialogue_topic([
     while ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120)) {
 
         if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
-            return;
+            dialogue_say($user_id, '嗯嗯');
+            break;
         }
 
         if (starts_with($answer, '/')) {
