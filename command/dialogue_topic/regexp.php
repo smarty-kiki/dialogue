@@ -12,7 +12,7 @@ dialogue_topic([
 
     $ask = '好，发我吧';
 
-    while ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120)) {
+    while (null !== ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120))) {
 
         if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
             dialogue_say($user_id, '嗯嗯');
@@ -41,5 +41,15 @@ dialogue_topic([
             }
         }
     }
+
+});/*}}}*/
+
+dialogue_topic([
+    '*常用*正则*',
+], function ($user_id, $content, $time) {/*{{{*/
+
+    dialogue_say($user_id,
+        '自然数  /^(0|[1-9][0-9]*)$/'
+    );
 
 });/*}}}*/
