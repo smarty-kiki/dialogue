@@ -11,8 +11,8 @@ function boson_html_to_text($html)
 
 function boson_nlp_summary($text)
 {/*{{{*/
-    return remote_post_json('http://api.bosonnlp.com/summary/analysis', [
+    return remote_post_json('http://api.bosonnlp.com/summary/analysis', http_build_query([
         'title' => '',
         'content' => $text,
-    ], 10, 3, ['X-Token: '.BOSON_API_TOKEN]);
+    ]), 10, 3, ['X-Token: '.BOSON_API_TOKEN]);
 }/*}}}*/
