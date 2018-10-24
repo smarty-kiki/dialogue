@@ -4,9 +4,9 @@ dialogue_topic([
     '获取摘要',
 ], function ($user_id, $content, $time) {/*{{{*/
 
-    $url = dialogue_ask_and_wait($user_id, '好的，发我 URL 吧', '/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/');
+    $res = dialogue_ask_and_wait($user_id, '好的，发我 URL 吧', '/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/');
 
-    $html = remote_get($url);
+    $html = remote_get($res[0]);
 
     if ($html) {
 
