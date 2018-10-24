@@ -12,11 +12,10 @@ function nlp_html_to_text($html)
     return mb_convert_encoding(preg_replace($search, $replace, $html), 'utf-8');
 }/*}}}*/
 
-function nlp_summary($text, $max_length = 120)
+function nlp_summary($text)
 {/*{{{*/
-
     return remote_post_json('http://summary.market.alicloudapi.com/clouds/nlp/summary', json([
         'document' => $text,
-        'maxLength' => $max_length,
+        'maxLength' => mb_strlen($text) * 0.2,
     ]), 10, 3, ['Authorization:APPCODE '.NLP_APP_CODE]);
 }/*}}}*/
