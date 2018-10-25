@@ -10,9 +10,9 @@ dialogue_topic([
 
     if ($html) {
 
-        $dom = str_get_html($html);
+        $text = html_to_text($html);
 
-        $res = text_rank_get_summary($dom->innertext);
+        $res = text_rank_get_summary($text);
 
         dialogue_say($user_id, $res);
     } else {
