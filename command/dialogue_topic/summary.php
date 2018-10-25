@@ -14,7 +14,7 @@ dialogue_topic([
 
         $res = nlp_summary($text);
 
-        dialogue_say($user_id, $res['data']);
+        dialogue_say($user_id, $res);
     } else {
         dialogue_say($user_id, '这链接我访问不了');
     }

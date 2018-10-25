@@ -11,8 +11,8 @@ function nlp_html_to_text($html)
 function nlp_summary($text)
 {/*{{{*/
     $res_html = remote_post('https://cws.9sep.org/textrank', http_build_query([
-        'document' => $text,
-        'maxLength' => mb_strlen($text) * 0.2,
+        'text' => $text,
+        'topk' => 3,
     ]), 10, 3);
 
     if ($res_html) {
@@ -21,6 +21,6 @@ function nlp_summary($text)
 
         $dom = str_get_html($res_html);
 
-        return $dom->find('[name=excerpt]')->innertext;
+        return $dom->find('[name=excerpt]')[0]->innertext;
     }
 }/*}}}*/
