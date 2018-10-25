@@ -13,7 +13,7 @@ function nlp_summary($text)
     $res_html = remote_post('https://cws.9sep.org/textrank', http_build_query([
         'text' => $text,
         'topk' => 3,
-    ]), 10, 3);
+    ]), 5, 3);
 
     if ($res_html) {
 
