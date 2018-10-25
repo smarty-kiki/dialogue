@@ -1,9 +1,5 @@
 <?php
 
-define('NLP_APP_KEY', '25224800');
-define('NLP_APP_SECRET', '29ef121a79bae9c762e8626d6a0c856f');
-define('NLP_APP_CODE', 'ca42dc926d8a498db18926928a3e9f2a');
-
 function nlp_html_to_text($html)
 {/*{{{*/
     $search = array("'<script[^>]*?>.*?</script>'si", "'<[\/\!]*?[^<>]*?>'si", "'([\r\n])[\s]+'", "'&(quot|#34|#034|#x22);'i", "'&(amp|#38|#038|#x26);'i", "'&(lt|#60|#060|#x3c);'i", "'&(gt|#62|#062|#x3e);'i", "'&(nbsp|#160|#xa0);'i", "'&(iexcl|#161);'i", "'&(cent|#162);'i", "'&(pound|#163);'i", "'&(copy|#169);'i", "'&(reg|#174);'i", "'&(deg|#176);'i", "'&(#39|#039|#x27);'", "'&(euro|#8364);'i", "'&a(uml|UML);'", "'&o(uml|UML);'", "'&u(uml|UML);'", "'&A(uml|UML);'", "'&O(uml|UML);'", "'&U(uml|UML);'", "'&szlig;'i", );
@@ -14,8 +10,17 @@ function nlp_html_to_text($html)
 
 function nlp_summary($text)
 {/*{{{*/
-    return remote_post_json('http://summary.market.alicloudapi.com/clouds/nlp/summary', json([
+    $res_html = remote_post('https://cws.9sep.org/textrank', http_build_query([
         'document' => $text,
         'maxLength' => mb_strlen($text) * 0.2,
-    ]), 10, 3, ['Authorization:APPCODE '.NLP_APP_CODE]);
+    ]), 10, 3);
+
+    if ($res_html) {
+
+        $res_html = mb_convert_encoding($res_html, 'utf-8');
+
+        $dom = str_get_html($res_html);
+
+        return $dom->find('[name=excerpt]')->innertext;
+    }
 }/*}}}*/
