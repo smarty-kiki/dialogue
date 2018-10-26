@@ -44,9 +44,7 @@ dialogue_topic([
 
 });/*}}}*/
 
-dialogue_topic([
-    '常用正则',
-], function ($user_id, $content, $time) {/*{{{*/
+dialogue_topic(['常用正则'], function ($user_id, $content, $time) {/*{{{*/
 
     dialogue_say($user_id,
         "自然数  /^(0|[1-9][0-9]*)$/\n"

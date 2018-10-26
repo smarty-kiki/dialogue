@@ -7,6 +7,10 @@ dialogue_topic([
 
     $book_query = trim($book_query);
 
+    if (! $book_query) {
+        $book_query = dialogue_ask_and_wait($user_id, '好的，发我一下书名', null, 60);
+    }
+
     $books = douban_book_search($book_query, 20);
 
     if ($books) {

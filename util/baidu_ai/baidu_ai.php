@@ -56,3 +56,20 @@ function baidu_ai_nlp_simnet($text1, $text2)
 
     return $res['score'];
 }/*}}}*/
+
+function baidu_ai_nlp_word_emb_sim($word1, $word2)
+{/*{{{*/
+    $access_token = _baidu_ai_access_token();
+
+    $post = json([
+        'word_1' => $word1,
+        'word_2' => $word2,
+    ]);
+
+    $res_gbk = remote_post('https://aip.baidubce.com/rpc/2.0/nlp/v2/word_emb_sim?access_token='.$access_token, mb_convert_encoding($post, 'gbk'));
+
+    $res = json_decode(mb_convert_encoding($res_gbk, 'utf-8'), true);
+    var_dump($res);exit;
+
+    return $res['score'];
+}/*}}}*/
