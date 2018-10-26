@@ -16,7 +16,11 @@ command('dialogue:operator', '启动接线员', function ()
     });
 
     dialogue_topic_match_extension_action(function ($content, $topic) {
-        return baidu_ai_nlp_simnet($content, $topic) > 0.7;
+        $score = baidu_ai_nlp_simnet($content, $topic);
+        return [
+            $score > 0.7,
+            [],
+        ];
     });
 
     dialogue_watch($config_key, $memory_limit);
