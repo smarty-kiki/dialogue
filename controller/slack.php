@@ -4,7 +4,7 @@ if_post('/slack/event', function ()
 {
     $type = input_json('type');
 
-    switch ($$type) {
+    switch ($type) {
     case 'url_verification':
 
         $challenge = input_json('challenge');
