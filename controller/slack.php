@@ -1,6 +1,6 @@
 <?php
 
-if_get('/slack/event', function ()
+if_post('/slack/event', function ()
 {
     $challenge = input_json('challenge');
 
