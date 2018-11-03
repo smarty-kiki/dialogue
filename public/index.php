@@ -44,6 +44,7 @@ if_not_found(function () {
 include CONTROLLER_DIR.'/work.php';
 include CONTROLLER_DIR.'/talk.php';
 include CONTROLLER_DIR.'/wechat.php';
+include CONTROLLER_DIR.'/slack.php';
 include CONTROLLER_DIR.'/index.php';
 
 // fix

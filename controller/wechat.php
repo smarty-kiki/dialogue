@@ -14,6 +14,7 @@ if_post('/wechat/receive', function ()
     $message_info = wechat_receive_message($signature, $timestamp, $nonce, $openid, input_post_raw());
 
     $type = $message_info['type'];
+
     $message = $message_info['message'];
 
     switch ($type) {
