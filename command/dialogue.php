@@ -15,13 +15,13 @@ command('dialogue:operator', '启动接线员', function ()
         dialogue_say($user_id, "不懂 '$message'");
     });
 
-    dialogue_topic_match_extension_action(function ($content, $topic) {
-        $score = baidu_ai_nlp_simnet($content, $topic);
-        return [
-            $score > 0.7,
-            [],
-        ];
-    });
+//    dialogue_topic_match_extension_action(function ($content, $topic) {
+//        $score = baidu_ai_nlp_simnet($content, $topic);
+//        return [
+//            $score > 0.7,
+//            [],
+//        ];
+//    });
 
     dialogue_watch($config_key, $memory_limit);
 });/*}}}*/
