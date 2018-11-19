@@ -1,7 +1,5 @@
 <?php
 
-include __DIR__.'/../../frame/function.php';
-
 define('AMAP_WEB_KEY', '945269c6991ecbce458b8c6526fecac8');
 define('AMAP_WEB_DOMAIN', 'https://m.amap.com');
 
