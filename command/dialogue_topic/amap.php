@@ -41,10 +41,10 @@ dialogue_topic([
     $poi_str = '';
 
     foreach ($poi_info as $type => $count) {
-        $poi_str .= "$type $count 个,";
+        $poi_str .= "$type $count 个, ";
     }
 
-    $reply_message = $regeo_info['regeocode']['formatted_address'].'周边有'.$poi_str.'<a href="'.$localsearch_url.'">点这里查看</a>';
+    $reply_message = $regeo_info['regeocodes'][0]['formatted_address'].', 周边有'.$poi_str.'<a href="'.$localsearch_url.'">点这里查看</a>';
 
     dialogue_say($user_id, $reply_message);
 
