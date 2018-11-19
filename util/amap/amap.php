@@ -17,12 +17,12 @@ function get_web_localsearch_url($longitude, $latitude, array $keywords)
     ]);
 }/*}}}*/
 
-function get_regeo_info($longitude, $latitude, array $keywords)
+function get_regeo_info($longitude, $latitude, array $types)
 {/*{{{*/
     return remote_get_json(AMAP_SERVICE_DEMAIN.'/v3/geocode/regeo?'.http_build_query([
         'key'         =>  AMAP_SERVICE_KEY,
         'location'    =>  implode(',',       [$longitude,  $latitude]),
-        'poitype'     =>  implode('|',       $keywords),
+        'poitype'     =>  implode('|',       $types),
         'radius'      =>  1500,
         'extensions'  =>  'all',
         'batch'       =>  'true',
