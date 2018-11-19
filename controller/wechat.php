@@ -53,7 +53,9 @@ if_post('/wechat/receive', function ()
 
         wechat_reply_is_typing($from_user_id, true);
 
-        $reply_message = dialogue_push($from_user_id, $message['description'], true);
+        $received_message_json = json($message);
+
+        $reply_message = dialogue_push($from_user_id, $received_message_json, true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 

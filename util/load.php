@@ -7,3 +7,4 @@ include __DIR__.'/simple_html_dom/simple_html_dom.php';
 include __DIR__.'/nlp/text_rank.php';
 include __DIR__.'/baidu_ai/baidu_ai.php';
 include __DIR__.'/slack/slack.php';
+include __DIR__.'/amap/amap.php';
