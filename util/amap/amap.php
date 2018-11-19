@@ -12,7 +12,7 @@ function get_web_localsearch_url($longitude, $latitude, array $keywords)
         'locations'     =>  implode(',',   [$longitude,  $latitude]),
         'keywords'      =>  implode(',',   $keywords),
         'defaultIndex'  =>  1,
-        'searchRadius'  =>  3000,
+        'searchRadius'  =>  1500,
         'key'           =>  AMAP_WEB_KEY,
     ]);
 }/*}}}*/
@@ -23,7 +23,7 @@ function get_regeo_info($longitude, $latitude, array $keywords)
         'key'         =>  AMAP_SERVICE_KEY,
         'location'    =>  implode(',',       [$longitude,  $latitude]),
         'poitype'     =>  implode('|',       $keywords),
-        'radius'      =>  3000,
+        'radius'      =>  1500,
         'extensions'  =>  'all',
         'batch'       =>  'true',
         'roadlevel'   =>  0,
