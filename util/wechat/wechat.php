@@ -83,8 +83,8 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
             'type' => 'location',
             'message' => [
                 'user_id' => (string) $message->FromUserName,
-                'longitude' => (string) $message->Location_X,
-                'latitude' => (string) $message->Location_Y,
+                'longitude' => (string) $message->Location_Y,
+                'latitude' => (string) $message->Location_X,
                 'description' => (string) $message->Label,
             ],
         ];
