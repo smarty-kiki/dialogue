@@ -22,16 +22,16 @@ dialogue_topic([
     } while (! $location_info);
 
     $localsearch_url = get_web_localsearch_url($location_info['longitude'], $location_info['latitude'], [
-        '美食', '超市', '电影院', '健身房', '公交站', '地铁站',
+        '美食', '超市', '电影院', '公交站', '地铁站',
     ]);
 
     $regeo_info = get_regeo_info($location_info['longitude'], $location_info['latitude'], [
-        '美食', '超市', '电影院', '健身房', '公交站', '地铁站',
+        '美食', '超市', '电影院', '公交站', '地铁站',
     ]);
 
     $poi_info = [];
 
-    foreach ($regeo_info['regeocode']['pois'] as $poi) {
+    foreach ($regeo_info['regeocodes'][0]['pois'] as $poi) {
 
         $tmp_poi_types = explode(';', $poi['type']);
 
