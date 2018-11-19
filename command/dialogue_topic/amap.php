@@ -21,8 +21,31 @@ dialogue_topic([
 
     } while (! $location_info);
 
-    dialogue_say($user_id, get_web_localsearch_url($location_info['longitude'], $location_info['latitude'], [
-        '美食', '超市', '电影院', '公交站', '地铁站'
-    ]));
+    $localsearch_url = get_web_localsearch_url($location_info['longitude'], $location_info['latitude'], [
+        '美食', '超市', '电影院', '健身房', '公交站', '地铁站',
+    ]);
+
+    $regeo_info = get_regeo_info($location_info['longitude'], $location_info['latitude'], [
+        '美食', '超市', '电影院', '健身房', '公交站', '地铁站',
+    ]);
+
+    $poi_info = [];
+
+    foreach ($regeo_info['regeocode']['pois'] as $poi) {
+
+        $tmp_poi_types = explode(';', $poi['type']);
+
+        $poi_info[$tmp_poi_types[1]] += 1;
+    }
+
+    $poi_str = '';
+
+    foreach ($poi_info as $type => $count) {
+        $poi_str .= "$type $count 个,";
+    }
+
+    $reply_message = $regeo_info['regeocode']['formatted_address'].'周边有'.$poi_str.'<a href="'.$localsearch_url.'">点这里查看</a>';
+
+    dialogue_say($user_id, $reply_message);
 
 });/*}}}*/
