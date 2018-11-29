@@ -161,3 +161,12 @@ function wechat_sha1($token, $timestamp, $nonce)
         throw new Exception('ComputeSignatureError');;
     }
 }/*}}}*/
+
+function wechat_rtrim_voice_text($text)
+{/*{{{*/
+    foreach (['.', '!', '?', '。', '！', '？'] as $punctuate) {
+        $text = rtrim($text, $punctuate);
+    }
+
+    return $text;
+}/*}}}*/
