@@ -11,8 +11,7 @@ dialogue_topic([
 
 });/*}}}*/
 
-
-dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}', function ($user_id, $content) {
+dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}', function ($user_id, $content) {/*{{{*/
 
     $location_info = json_decode($content, true);
 
@@ -95,4 +94,4 @@ dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}
     $reply_message = $regeo_info['regeocodes'][0]['formatted_address'].', 周边有'.$poi_str.'<a href="'.$localsearch_url.'">点这里查看</a>';
 
     dialogue_say($user_id, $reply_message);
-});
+});/*}}}*/
