@@ -17,11 +17,13 @@ if_post('/wechat/receive', function ()
 
     $message = $message_info['message'];
 
+    $from_user_id = $message['user_id'];
+
+    /**kiki*/error_log(strip_tags(print_r($message, true))."\n", 3, "/tmp/error_user.log");
+
     switch ($type) {
 
     case 'text':
-
-        $from_user_id = $message['user_id'];
 
         wechat_reply_is_typing($from_user_id, true);
 
@@ -35,8 +37,6 @@ if_post('/wechat/receive', function ()
 
     case 'voice':
 
-        $from_user_id = $message['user_id'];
-
         wechat_reply_is_typing($from_user_id, true);
 
         $reply_message = dialogue_push($from_user_id, wechat_rtrim_voice_text($message['content']), true);
@@ -48,8 +48,6 @@ if_post('/wechat/receive', function ()
         return $reply_message_string;
 
     case 'location':
-
-        $from_user_id = $message['user_id'];
 
         wechat_reply_is_typing($from_user_id, true);
 
@@ -64,8 +62,6 @@ if_post('/wechat/receive', function ()
         return $reply_message_string;
 
     case 'link':
-
-        $from_user_id = $message['user_id'];
 
         wechat_reply_is_typing($from_user_id, true);
 
