@@ -59,7 +59,7 @@ function wechat_verify_url($msg_signature, $timestamp, $nonce, $echostr)
 
 function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $post_raw)
 {/*{{{*/
-    $message = simplexml_load_string($post_raw);
+    $message = simplexml_load_string($post_raw, 'SimpleXMLElement', LIBXML_NOCDATA);
 
     switch ($message->MsgType) {
     case 'text':

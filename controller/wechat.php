@@ -19,9 +19,6 @@ if_post('/wechat/receive', function ()
 
     $from_user_id = $message['user_id'];
 
-    /**kiki*/error_log(print_r(input_post_raw(), true)."\n", 3, "/tmp/error_user.log");
-    /**kiki*/error_log(strip_tags(print_r($message, true))."\n", 3, "/tmp/error_user.log");
-
     switch ($type) {
 
     case 'text':
