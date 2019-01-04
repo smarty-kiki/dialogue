@@ -18,6 +18,8 @@ if_post('/slack/event', function ()
 
         $text = input_json('text');
 
+        /**kiki*/error_log(strip_tags(print_r($text, true))."\n", 3, "/tmp/error_user.log");
+
         slack_say_to_smarty_ds($text);
 
         return [];
