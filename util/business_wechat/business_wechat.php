@@ -76,7 +76,7 @@ function business_wechat_receive_message($msg_signature, $timestamp, $nonce, $po
 {/*{{{*/
     $message_xml = business_wechat_decrypt_message($msg_signature, $timestamp, $nonce, $post_raw);
 
-    $message = simplexml_load_string($message_xml);
+    $message = simplexml_load_string($message_xml, 'SimpleXMLElement', LIBXML_NOCDATA);
 
     return [
         'type' => (string) $message->MsgType,
@@ -130,7 +130,7 @@ function business_wechat_decrypt_message($msg_signature, $timestamp, $nonce, $po
         throw new Exception('IllegalAesKey');
     }
 
-    $xml = simplexml_load_string($post_data);
+    $xml = simplexml_load_string($post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
     $encrypt_msg = (string) $xml->Encrypt;
 
