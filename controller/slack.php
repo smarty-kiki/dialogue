@@ -18,6 +18,8 @@ if_post('/slack/event', function ()
 
         $event = input_json('event');
 
+        otherwise(! isset($event['bot_id']));
+
         switch ($event['type']) {
             case 'message':
 
