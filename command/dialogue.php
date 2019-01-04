@@ -14,6 +14,15 @@ command('dialogue:operator', '启动接线员', function ()
     });
 
     dialogue_topic_miss_action(function ($user_id, $message) {
+
+        try {
+
+            throw new Exception();
+
+        } catch (Exception $ex) {
+            /**kiki*/error_log(print_r($ex->getTraceAsString(), true)."\n", 3, "/tmp/error_user.log");
+        }
+
         dialogue_say($user_id, "不懂 '$message'");
     });
 
