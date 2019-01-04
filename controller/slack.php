@@ -4,9 +4,6 @@ if_post('/slack/event', function ()
 {
     $type = input_json('type');
 
-    /**kiki*/error_log(strip_tags(print_r($type, true))."\n", 3, "/tmp/error_user.log");
-    /**kiki*/error_log(print_r(input_post_raw(), true)."\n", 3, "/tmp/error_user.log");
-
     if ($type === 'url_verification') {
 
         $challenge = input_json('challenge');
@@ -14,6 +11,7 @@ if_post('/slack/event', function ()
         return [
             'challenge' => $challenge,
         ];
+
     } elseif ($type === 'event_callback') {
 
         $event = input_json('event');
@@ -23,7 +21,7 @@ if_post('/slack/event', function ()
         switch ($event['type']) {
             case 'message':
 
-                slack_say_to_smarty_ds($event['text']);
+                $reply_message = dialogue_push('slack_smarty_coin', $event['text']);
 
                 break;
         }
