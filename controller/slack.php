@@ -21,9 +21,10 @@ if_post('/slack/event', function ()
         /**kiki*/error_log(strip_tags(print_r($event, true))."\n", 3, "/tmp/error_user.log");
 
         switch ($event['type']) {
+
             case 'app_mention':
 
-                $reply_message = dialogue_push('slack_smarty_coin', $event['text']);
+                $reply_message = dialogue_push('slack_smarty_coin', trim($event['text']));
 
                 break;
         }

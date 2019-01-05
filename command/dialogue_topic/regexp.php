@@ -14,8 +14,6 @@ dialogue_topic([
 
     while (null !== ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120))) {
 
-        $answer = trim($answer);
-
         if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
             dialogue_say($user_id, '嗯嗯');
             break;
