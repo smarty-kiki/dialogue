@@ -2,6 +2,8 @@
 
 if_post('/slack/event', function ()
 {
+    /**kiki*/error_log(strip_tags(print_r(json_decode(input_post_raw(), true), true))."\n", 3, "/tmp/error_user.log");
+
     $type = input_json('type');
 
     if ($type === 'url_verification') {
@@ -15,8 +17,6 @@ if_post('/slack/event', function ()
     } elseif ($type === 'event_callback') {
 
         $event = input_json('event');
-
-        /**kiki*/error_log(strip_tags(print_r($event, true))."\n", 3, "/tmp/error_user.log");
 
         otherwise(! isset($event['bot_id']));
 
