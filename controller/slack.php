@@ -22,7 +22,9 @@ if_post('/slack/event', function ()
 
             case 'app_mention':
 
-                $reply_message = dialogue_push($event['user'], $event['text']);
+                $message = str_replace('<@UF85D4HEK> ', '', $event['text']);
+
+                $reply_message = dialogue_push($event['user'], $message);
 
                 break;
         }
