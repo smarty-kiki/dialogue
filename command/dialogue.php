@@ -10,18 +10,10 @@ command('dialogue:operator', '启动接线员', function ()
     dialogue_send_action(function ($user_id, $message) {
         //business_wechat_send_message($user_id, [],[],$message);
 
-        slack_say_to_smarty_coin($message);
+        slack_say_to_smarty_coin("<@$user_id>".$message);
     });
 
     dialogue_topic_miss_action(function ($user_id, $message) {
-
-        try {
-
-            throw new Exception();
-
-        } catch (Exception $ex) {
-            /**kiki*/error_log(print_r($ex->getTraceAsString(), true)."\n", 3, "/tmp/error_user.log");
-        }
 
         dialogue_say($user_id, "不懂 '$message'");
     });
