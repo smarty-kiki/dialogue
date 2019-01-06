@@ -18,6 +18,8 @@ if_post('/slack/event', function ()
 
         otherwise(! isset($event['bot_id']));
 
+        /**kiki*/error_log(print_r($event, true)."\n", 3, '/tmp/error_user.log');
+
         switch ($event['type']) {
 
             case 'app_mention':
