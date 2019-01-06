@@ -24,8 +24,6 @@ if_post('/slack/event', function ()
 
             case 'app_mention':
 
-                otherwise($event['channel_type'] === 'group');
-
                 $message = str_replace('<@UF85D4HEK> ', '', $event['text']);
 
                 $reply_message = dialogue_push($event['user'], $message);
