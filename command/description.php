@@ -10,7 +10,7 @@ function _generate_description_file($entity_name, $display_name, $description, $
 
         $struct_name = array_shift($entity_struct);
 
-        $structs[$struct_name] = array_transfer($entity_struct, [
+        $tmp_struct = array_transfer($entity_struct, [
             'datatype'           => 'type',
             'format'             => 'format',
             'format_description' => 'format_description',
@@ -19,6 +19,12 @@ function _generate_description_file($entity_name, $display_name, $description, $
             'allow_null'         => 'allow_null',
             'default'            => 'default',
         ]);
+
+        if (is_null($tmp_struct['default']) && ! $tmp_struct['allow_null']) {
+            unset($tmp_struct['default']);
+        }
+
+        $structs[$struct_name] = $tmp_struct;
     }
 
     $relationships = [];
@@ -52,7 +58,7 @@ function _generate_description_file($entity_name, $display_name, $description, $
         'snaps' => $snaps,
     ];
 
-    return yaml_emit($yaml);
+    return yaml_emit($yaml, YAML_UTF8_ENCODING, YAML_LN_BREAK);
 }/*}}}*/
 
 command('description:make-domain-description', '通过交互式输入创建领域实体描述文件', function ()
