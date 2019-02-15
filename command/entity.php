@@ -42,10 +42,10 @@ class %s extends entity
     public static $struct_descriptions = [
         %s
     ];
-    %s
-        public static $struct_formats = [
-            %s
-        ];
+%s
+    public static $struct_formats = [
+        %s
+    ];
 
     public static $struct_format_descriptions = [
         %s
@@ -54,12 +54,12 @@ class %s extends entity
     public function __construct()
     {/*{{{*/
         %s
-}/*}}}*/
+    }/*}}}*/
 
-public static function create()
-{/*{{{*/
-    return parent::init();
-}/*}}}*/
+    public static function create()
+    {/*{{{*/
+        return parent::init();
+    }/*}}}*/
 %s
 }';
 
@@ -202,18 +202,18 @@ class {$entity_name}_dao extends dao
 function _generate_migration_file($entity_name, $entity_structs, $entity_relationships)
 {/*{{{*/
     $content = "# up
-        CREATE TABLE `%s` (
-            `id` bigint(20) NOT NULL,
-            `version` int(11) NOT NULL,
-            `create_time` datetime DEFAULT NULL,
-            `update_time` datetime DEFAULT NULL,
-            `delete_time` datetime DEFAULT NULL,
-            %s
-            PRIMARY KEY (`id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `%s` (
+    `id` bigint(20) NOT NULL,
+    `version` int(11) NOT NULL,
+    `create_time` datetime DEFAULT NULL,
+    `update_time` datetime DEFAULT NULL,
+    `delete_time` datetime DEFAULT NULL,
+    %s
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    # down
-    drop table `%s`;";
+# down
+drop table `%s`;";
 
     $columns = [];
 
@@ -332,7 +332,7 @@ command('entity:make-from-description', '从实体描述文件初始化 entity�
             $tmp = [
                 'name' => 'snap_'.$snap_relation_name.'_'.$column,
                 'datatype' => $struct['type'],
-                'display_name' => $struct['display_name'],
+                'display_name' => $parent_description['display_name'].$struct['display_name'],
                 'description' => $struct['description'],
                 'format' => array_get($struct, 'format', null),
                 'format_description' => array_get($struct, 'format_description', null),
