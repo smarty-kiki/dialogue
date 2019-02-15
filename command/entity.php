@@ -7,7 +7,7 @@ function _get_value_from_description_file($entity_name, $key = null, $default = 
 {/*{{{*/
     $entity_file_path = DESCRIPTION_DIR.'/'.$entity_name.'.yml';
 
-    otherwise(file_exists($entity_file_path), "实体 $entity_name 描述文件没找到");
+    otherwise(is_file($entity_file_path), "实体 $entity_name 描述文件没找到");
 
     $description = yaml_parse_file(DESCRIPTION_DIR.'/'.$entity_name.'.yml');
 
@@ -42,10 +42,10 @@ class %s extends entity
     public static $struct_descriptions = [
         %s
     ];
-%s
-    public static $struct_formats = [
-        %s
-    ];
+    %s
+        public static $struct_formats = [
+            %s
+        ];
 
     public static $struct_format_descriptions = [
         %s
@@ -54,12 +54,12 @@ class %s extends entity
     public function __construct()
     {/*{{{*/
         %s
-    }/*}}}*/
+}/*}}}*/
 
-    public static function create()
-    {/*{{{*/
-        return parent::init();
-    }/*}}}*/
+public static function create()
+{/*{{{*/
+    return parent::init();
+}/*}}}*/
 %s
 }';
 
@@ -202,18 +202,18 @@ class {$entity_name}_dao extends dao
 function _generate_migration_file($entity_name, $entity_structs, $entity_relationships)
 {/*{{{*/
     $content = "# up
-CREATE TABLE `%s` (
-    `id` bigint(20) NOT NULL,
-    `version` int(11) NOT NULL,
-    `create_time` datetime DEFAULT NULL,
-    `update_time` datetime DEFAULT NULL,
-    `delete_time` datetime DEFAULT NULL,
-    %s
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        CREATE TABLE `%s` (
+            `id` bigint(20) NOT NULL,
+            `version` int(11) NOT NULL,
+            `create_time` datetime DEFAULT NULL,
+            `update_time` datetime DEFAULT NULL,
+            `delete_time` datetime DEFAULT NULL,
+            %s
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# down
-drop table `%s`;";
+    # down
+    drop table `%s`;";
 
     $columns = [];
 
@@ -240,7 +240,12 @@ drop table `%s`;";
     foreach ($entity_relationships as $relationship) {
         if ($relationship['type'] === 'belongs_to') {
             $columns[] = "`{$relationship['relation_name']}_id` bigint(20) NOT NULL,";
-            $indexs[] = "KEY `fk_{$entity_name}_{$relationship['relate_to']}_idx` (`{$relationship['relation_name']}_id`),";
+
+            if ($relationship['relation_name'] === $relationship['relate_to']) {
+                $indexs[] = "KEY `fk_{$relationship['relation_name']}_idx` (`{$relationship['relation_name']}_id`),";
+            } else {
+                $indexs[] = "KEY `fk_{$relationship['relation_name']}_{$relationship['relate_to']}_idx` (`{$relationship['relation_name']}_id`),";
+            }
         }
     }
 
@@ -257,6 +262,7 @@ command('entity:make-from-description', '从实体描述文件初始化 entity�
     $entity_display_name = array_get($description, 'display_name', '');
     $entity_description = array_get($description, 'description', '');
 
+    $entity_structs = [];
     foreach ($structs as $column => $struct) {
 
         $tmp = [
@@ -278,6 +284,7 @@ command('entity:make-from-description', '从实体描述文件初始化 entity�
 
     $relationships = array_get($description, 'relationships', []);
 
+    $entity_relationships = [];
     foreach ($relationships as $relation_name => $relationship) {
 
         $relation_entity_name = $relationship['entity'];
