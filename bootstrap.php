@@ -13,6 +13,7 @@ include FRAME_DIR.'/function.php';
 include FRAME_DIR.'/otherwise.php';
 include FRAME_DIR.'/cache/redis.php';
 include FRAME_DIR.'/database/mysql.php';
+include FRAME_DIR.'/queue/beanstalk.php';
 include FRAME_DIR.'/dialogue/beanstalk.php';
 include FRAME_DIR.'/log/file.php';
 
