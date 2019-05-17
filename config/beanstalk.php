@@ -3,6 +3,7 @@
 return [
     'midwares' => [
         'default' => 'local',
+        'dialogue' => 'local',
     ],
 
     'resources' => [
