@@ -50,11 +50,7 @@ function baidu_ai_nlp_simnet($text1, $text2)
         'model' => 'BOW', // 'BOW', 'CNN', 'GRNN'
     ]);
 
-    $res_gbk = remote_post('https://aip.baidubce.com/rpc/2.0/nlp/v2/simnet?access_token='.$access_token, mb_convert_encoding($post, 'gbk'));
-
-    $res = json_decode(mb_convert_encoding($res_gbk, 'utf-8'), true);
-
-    return $res['score'];
+    return remote_post_json('https://aip.baidubce.com/rpc/2.0/nlp/v2/simnet?charset=UTF-8&access_token='.$access_token, $post);
 }/*}}}*/
 
 function baidu_ai_nlp_word_emb_sim($word1, $word2)
@@ -66,10 +62,17 @@ function baidu_ai_nlp_word_emb_sim($word1, $word2)
         'word_2' => $word2,
     ]);
 
-    $res_gbk = remote_post('https://aip.baidubce.com/rpc/2.0/nlp/v2/word_emb_sim?access_token='.$access_token, mb_convert_encoding($post, 'gbk'));
+    return remote_post_json('https://aip.baidubce.com/rpc/2.0/nlp/v2/word_emb_sim?charset=UTF-8&access_token='.$access_token, $post);
+}/*}}}*/
 
-    $res = json_decode(mb_convert_encoding($res_gbk, 'utf-8'), true);
-    var_dump($res);exit;
+function baidu_ai_nlp_depparser($text, $mode = 1)
+{/*{{{*/
+    $access_token = _baidu_ai_access_token();
 
-    return $res['score'];
+    $post = json([
+        'text' => $text,
+        'mode' => $mode,
+    ]);
+
+    return remote_post_json('https://aip.baidubce.com/rpc/2.0/nlp/v1/depparser?charset=UTF-8&access_token='.$access_token, $post);
 }/*}}}*/
