@@ -7,7 +7,7 @@ command('dialogue:operator', '启动接线员', function ()
 
     ini_set('memory_limit', $memory_limit.'b');
 
-    dialogue_async_send_action(function ($user_info, $message) {
+    dialogue_async_send_action(function ($user_info, $message) {/*{{{*/
 
         list($user_id, $channel_id, $source) = list_dialogue_user_info($user_info);
 
@@ -28,20 +28,30 @@ command('dialogue:operator', '启动接线员', function ()
                 log_notice($source.' to '.$user_id.': '.$message);
                 break;
         }
-    });
+    });/*}}}*/
 
-    dialogue_topic_miss_action(function ($user_id, $message) {
+    dialogue_topic_miss_action(function ($user_id, $message) {/*{{{*/
 
         dialogue_say($user_id, "不懂 '$message'");
-    });
+    });/*}}}*/
 
-//    dialogue_topic_match_extension_action(function ($content, $topic) {
+    dialogue_topic_match_extension_action(function ($content, $topics) {
+
+        foreach ($topics as $topic) {
+
+            log_notice($content.' - '.$topic);
+            if ($topic === '测试正则' && $content === 'test') {
+                return [true, []];
+            }
+        }
+
+        return [false, []];
 //        $score = baidu_ai_nlp_simnet($content, $topic);
 //        return [
 //            $score > 0.7,
 //            [],
 //        ];
-//    });
+    });
 
     dialogue_watch($config_key, $memory_limit);
 });/*}}}*/
