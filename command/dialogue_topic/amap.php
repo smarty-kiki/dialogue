@@ -82,6 +82,10 @@ dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}
 
         $tmp_poi_types = explode(';', $poi['type']);
 
+        if (! isset($poi_info[$tmp_poi_types[1]])) {
+
+            $poi_info[$tmp_poi_types[1]] = 0;
+        }
         $poi_info[$tmp_poi_types[1]] += 1;
     }
 
