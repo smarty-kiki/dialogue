@@ -5,6 +5,7 @@ date_default_timezone_set('Asia/Shanghai');
 
 define('ROOT_DIR', __DIR__);
 define('FRAME_DIR', ROOT_DIR.'/frame');
+define('DOMAIN_DIR', ROOT_DIR.'/domain');
 define('COMMAND_DIR', ROOT_DIR.'/command');
 define('CONTROLLER_DIR', ROOT_DIR.'/controller');
 define('DIALOGUE_TOPIC_DIR', COMMAND_DIR.'/dialogue_topic');
@@ -20,4 +21,5 @@ include FRAME_DIR.'/log/file.php';
 config_dir(ROOT_DIR.'/config');
 
 include ROOT_DIR.'/util/load.php';
+include DOMAIN_DIR.'/load.php';
 include DIALOGUE_TOPIC_DIR.'/load.php';

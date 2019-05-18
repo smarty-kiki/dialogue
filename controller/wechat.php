@@ -25,7 +25,9 @@ if_post('/wechat/receive', function ()
 
         wechat_reply_is_typing($from_user_id, true);
 
-        $reply_message = dialogue_push($from_user_id, $message['content'], true);
+        $reply_message = dialogue_push(dialogue_user_info(
+            $from_user_id, 0, 'wechat'
+        ), $message['content'], true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 
@@ -37,7 +39,9 @@ if_post('/wechat/receive', function ()
 
         wechat_reply_is_typing($from_user_id, true);
 
-        $reply_message = dialogue_push($from_user_id, wechat_rtrim_voice_text($message['content']), true);
+        $reply_message = dialogue_push(dialogue_user_info(
+            $from_user_id, 0, 'wechat'
+        ), wechat_rtrim_voice_text($message['content']), true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 
@@ -51,7 +55,9 @@ if_post('/wechat/receive', function ()
 
         $received_message_json = json($message);
 
-        $reply_message = dialogue_push($from_user_id, $received_message_json, true);
+        $reply_message = dialogue_push(dialogue_user_info(
+            $from_user_id, 0, 'wechat'
+        ), $received_message_json, true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 
@@ -63,7 +69,9 @@ if_post('/wechat/receive', function ()
 
         wechat_reply_is_typing($from_user_id, true);
 
-        $reply_message = dialogue_push($from_user_id, $message['url'], true);
+        $reply_message = dialogue_push(dialogue_user_info(
+            $from_user_id, 0, 'wechat'
+        ), $message['url'], true);
 
         $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
 

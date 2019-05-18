@@ -21,7 +21,9 @@ if_post('/work/receive', function ()
 
     case 'text':
 
-        $reply_message = dialogue_push($message['user_id'], $message['content'], true);
+        $reply_message = dialogue_push(dialogue_user_info(
+            $message['user_id'], 0, 'business_wechat'
+        ), $message['content'], true);
 
         return business_wechat_reply_message($reply_message['user_id'], $reply_message['content']);
     }

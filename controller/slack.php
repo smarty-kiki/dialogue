@@ -26,7 +26,9 @@ if_post('/slack/event', function ()
 
                 $message = str_replace('<@UF85D4HEK> ', '', $event['text']);
 
-                $reply_message = dialogue_push($event['user'], $message);
+                $reply_message = dialogue_push(dialogue_user_info(
+                    $event['user'], 0, 'slack'
+                ), $message);
 
                 break;
         }
