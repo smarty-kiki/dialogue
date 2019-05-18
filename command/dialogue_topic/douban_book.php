@@ -3,12 +3,12 @@
 dialogue_topic([
     '*这本书怎么样',
     '*在豆瓣图书的信息'
-], function ($user_id, $content, $time, $book_query) {/*{{{*/
+], function ($user_info, $content, $time, $book_query) {/*{{{*/
 
     $book_query = trim($book_query);
 
     if (! $book_query) {
-        $book_query = dialogue_ask_and_wait($user_id, '好的，发我一下书名', null, 60);
+        $book_query = dialogue_ask_and_wait($user_info, '好的，发我一下书名', null, 60);
     }
 
     $books = douban_book_search($book_query, 20);
@@ -24,7 +24,7 @@ dialogue_topic([
             }
 
             do {
-                $user_answer = dialogue_ask_and_wait($user_id, $message, '/^[1-9]\d*$/i', 60);
+                $user_answer = dialogue_ask_and_wait($user_info, $message, '/^[1-9]\d*$/i', 60);
 
                 if (is_null($user_answer)) {
                     return; // wait timeout
@@ -44,9 +44,9 @@ dialogue_topic([
 
         $answer = "《{$book['title']}》在豆瓣图书有 {$book['rating']['numRaters']} 个读者评价，{$book['rating']['average']} 的平均分，图书摘要：\n{$book['summary']}";
 
-        dialogue_say($user_id, $answer);
+        dialogue_say($user_info, $answer);
     } else {
-        dialogue_say($user_id, "豆瓣上没搜到跟 '$book_query' 相关的图书...");            
+        dialogue_say($user_info, "豆瓣上没搜到跟 '$book_query' 相关的图书...");
     }
 
 });/*}}}*/

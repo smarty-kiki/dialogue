@@ -5,13 +5,13 @@ dialogue_topic([
     '看一下租这儿怎么样',
     '看一下附近怎么样',
     '看一下这位置好不好'
-], function ($user_id, $content, $time) {/*{{{*/
+], function ($user_info, $content, $time) {/*{{{*/
 
-    dialogue_say($user_id, '好的，发我个定位');
+    dialogue_say($user_info, '好的，发我个定位');
 
 });/*}}}*/
 
-dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}', function ($user_id, $content) {/*{{{*/
+dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}', function ($user_info, $content) {/*{{{*/
 
     $location_info = json_decode($content, true);
 
@@ -97,5 +97,5 @@ dialogue_topic('{"user_id":"*","longitude":"*","latitude":"*","description":"*"}
 
     $reply_message = $regeo_info['regeocodes'][0]['formatted_address'].', 周边有'.$poi_str.'<a href="'.$localsearch_url.'">点这里查看</a>';
 
-    dialogue_say($user_id, $reply_message);
+    dialogue_say($user_info, $reply_message);
 });/*}}}*/

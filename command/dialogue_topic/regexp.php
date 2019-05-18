@@ -6,18 +6,18 @@ dialogue_topic([
     '正则实验',
     '正则调试',
     '正则验证',
-], function ($user_id, $content, $time) {/*{{{*/
+], function ($user_info, $content, $time) {/*{{{*/
 
     $pattern = $subject = null;
 
     $ask = '好，发我吧';
 
-    while (null !== ($answer = dialogue_ask_and_wait($user_id, $ask, null, 120))) {
+    while (null !== ($answer = dialogue_ask_and_wait($user_info, $ask, null, 120))) {
 
         $answer = trim($answer);
 
         if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
-            dialogue_say($user_id, '嗯嗯');
+            dialogue_say($user_info, '嗯嗯');
             break;
         }
 
@@ -46,9 +46,9 @@ dialogue_topic([
 
 });/*}}}*/
 
-dialogue_topic(['常用正则'], function ($user_id, $content, $time) {/*{{{*/
+dialogue_topic(['常用正则'], function ($user_info, $content, $time) {/*{{{*/
 
-    dialogue_say($user_id,
+    dialogue_say($user_info,
         "自然数  /^(0|[1-9][0-9]*)$/\n"
         ."有理数  /^(\-|\+)?\d+(\.\d+)?$/\n"
         ."3-20位任意字符  /^.{3,20}$/\n"
