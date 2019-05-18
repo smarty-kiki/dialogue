@@ -7,7 +7,7 @@ command('dialogue:operator', '启动接线员', function ()
 
     ini_set('memory_limit', $memory_limit.'b');
 
-    dialogue_send_action(function ($user_id, $message) {
+    dialogue_async_send_action(function ($user_id, $message) {
         //business_wechat_send_message($user_id, [],[],$message);
 
         slack_say_to_smarty_coin("<@$user_id> ".$message);
