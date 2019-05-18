@@ -9,7 +9,7 @@ command('dialogue:operator', '启动接线员', function ()
 
     dialogue_async_send_action(function ($user_info, $message) {
 
-        list($user_id, $channel_id, $source) = list_user_info($user_info);
+        list($user_id, $channel_id, $source) = list_dialogue_user_info($user_info);
 
         switch ($source) {
 

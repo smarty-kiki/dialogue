@@ -25,6 +25,8 @@ if_post('/work/receive', function ()
             $message['user_id'], 0, 'business_wechat'
         ), $message['content'], true);
 
-        return business_wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        return business_wechat_reply_message($user_id, $reply_message['content']);
     }
 });

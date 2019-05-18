@@ -9,7 +9,7 @@ function dialogue_user_info($user_id, $channel_id, $source)
     ];
 }/*}}}*/
 
-function list_user_info($user_info)
+function list_dialogue_user_info($user_info)
 {/*{{{*/
     return [
         $user_info['user_id'],
@@ -20,7 +20,7 @@ function list_user_info($user_info)
 
 dialogue_user_tube_string_action(function ($user_info) {
 
-    list($user_id, $channel_id, $source) = list_user_info($user_info);
+    list($user_id, $channel_id, $source) = list_dialogue_user_info($user_info);
 
     if ($channel_id) {
         return $source.'_c_'.$channel_id;

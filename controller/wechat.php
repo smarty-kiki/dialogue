@@ -29,7 +29,9 @@ if_post('/wechat/receive', function ()
             $from_user_id, 0, 'wechat'
         ), $message['content'], true);
 
-        $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        $reply_message_string = wechat_reply_message($user_id, $reply_message['content']);
 
         wechat_reply_is_typing($from_user_id, false);
 
@@ -43,7 +45,9 @@ if_post('/wechat/receive', function ()
             $from_user_id, 0, 'wechat'
         ), wechat_rtrim_voice_text($message['content']), true);
 
-        $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        $reply_message_string = wechat_reply_message($user_id, $reply_message['content']);
 
         wechat_reply_is_typing($from_user_id, false);
 
@@ -59,7 +63,9 @@ if_post('/wechat/receive', function ()
             $from_user_id, 0, 'wechat'
         ), $received_message_json, true);
 
-        $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        $reply_message_string = wechat_reply_message($user_id, $reply_message['content']);
 
         wechat_reply_is_typing($from_user_id, false);
 
@@ -73,11 +79,12 @@ if_post('/wechat/receive', function ()
             $from_user_id, 0, 'wechat'
         ), $message['url'], true);
 
-        $reply_message_string = wechat_reply_message($reply_message['user_id'], $reply_message['content']);
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        $reply_message_string = wechat_reply_message($user_id, $reply_message['content']);
 
         wechat_reply_is_typing($from_user_id, false);
 
         return $reply_message_string;
     }
-
 });
