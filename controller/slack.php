@@ -50,3 +50,8 @@ if_post('/slack/event', function ()
         return [];
     }
 });
+
+if_get('/slack/test', function () {
+
+    return slack_say_to_channel(SLACK_ADMIN_USER_ID, 'test');
+});
