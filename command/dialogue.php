@@ -28,7 +28,7 @@ command('dialogue:operator', '启动接线员', function ()
 
                 if ($type === 'im') {
                     slack_say_to_channel($channel_id, $message);
-                } elseif ($type === 'channel' || $type === 'group') {
+                } else {
                     slack_say_to_channel($channel_id, "<@$user_id> ".$message);
                 }
                 break;
