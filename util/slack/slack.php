@@ -18,5 +18,7 @@ function slack_say_to_channel($channel, $message, $attachments = [])
         $data['attachments'] = json_encode($attachments);
     }
 
+    /**kiki*/error_log(print_r($data, true)."\n", 3, '/tmp/slack.log');
+
     return remote_post('https://slack.com/api/chat.postMessage', $data, 10);
 }
