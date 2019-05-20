@@ -9,6 +9,9 @@ command('dialogue:operator', '启动接线员', function ()
 
     dialogue_async_send_action(function ($user_info, $message) {/*{{{*/
 
+        /**kiki*/error_log(print_r($user_info, true)."\n", 3, '/tmp/error_user.log');
+        /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
+
         list($user_id, $channel_id, $type, $source) = list_dialogue_user_info($user_info);
 
         switch ($source) {
