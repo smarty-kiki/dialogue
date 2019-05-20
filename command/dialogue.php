@@ -11,12 +11,6 @@ command('dialogue:operator', '启动接线员', function ()
 
         list($user_id, $channel_id, $type, $source) = list_dialogue_user_info($user_info);
 
-        /**kiki*/error_log(print_r($user_id, true)."\n", 3, '/tmp/error_user.log');
-        /**kiki*/error_log(print_r($channel_id, true)."\n", 3, '/tmp/error_user.log');
-        /**kiki*/error_log(print_r($type, true)."\n", 3, '/tmp/error_user.log');
-        /**kiki*/error_log(print_r($source, true)."\n", 3, '/tmp/error_user.log');
-        /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
-
         switch ($source) {
 
             case 'business_wechat':
@@ -29,6 +23,13 @@ command('dialogue:operator', '启动接线员', function ()
                 if ($type === 'im') {
                     slack_say_to_channel($channel_id, $message);
                 } elseif ($type === 'channel' || $type === 'group') {
+
+                    /**kiki*/error_log(print_r($user_id, true)."\n", 3, '/tmp/error_user.log');
+                    /**kiki*/error_log(print_r($channel_id, true)."\n", 3, '/tmp/error_user.log');
+                    /**kiki*/error_log(print_r($type, true)."\n", 3, '/tmp/error_user.log');
+                    /**kiki*/error_log(print_r($source, true)."\n", 3, '/tmp/error_user.log');
+                    /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
+
                     slack_say_to_channel($channel_id, "<@$user_id> ".$message);
                 }
                 break;
