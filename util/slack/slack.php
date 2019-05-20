@@ -9,7 +9,7 @@ function slack_say_to_channel($channel, $message, $attachments = [])
     $config = config('slack');
 
     $data = [
-        'token' => base64_decode($config['bot_token']),
+        'token' => base64_decode($config['bot_token_base64encode']),
         'channel' => $channel,
         'text' => $message,
     ];
