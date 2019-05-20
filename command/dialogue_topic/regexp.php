@@ -12,9 +12,11 @@ dialogue_topic([
 
     $ask = '好，发我吧';
 
-    while (null !== ($answer = dialogue_ask_and_wait($user_info, $ask, null, 120))) {
+    while (null !== ($message = dialogue_ask_and_wait($user_info, $ask, null, 120))) {
 
-        $answer = trim($answer);
+        $answer = trim($message['content']);
+
+        $user_info = $message['user_info'];
 
         if (false !== array_search($answer, ['谢了', '谢谢', '完事', '好了', '好的'])) {
             dialogue_say($user_info, '嗯嗯');
