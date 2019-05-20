@@ -20,6 +20,8 @@ command('dialogue:operator', '启动接线员', function ()
 
             case 'slack':
 
+                /**kiki*/error_log(print_r(json_encode($user_info), true)."\n", 3, '/tmp/error_user.log');
+
                 if ($type === 'im') {
                     slack_say_to_channel($channel_id, $message);
                 } else {
