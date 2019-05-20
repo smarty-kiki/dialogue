@@ -9,24 +9,30 @@ command('dialogue:operator', '启动接线员', function ()
 
     dialogue_async_send_action(function ($user_info, $message) {/*{{{*/
 
-        list($user_id, $channel_id, $source) = list_dialogue_user_info($user_info);
+        list($user_id, $channel_id, $type, $source) = list_dialogue_user_info($user_info);
 
         switch ($source) {
 
-            case 'business_wechat':
+        case 'business_wechat':
 
-                business_wechat_send_message($user_id, [],[],$message);
-                break;
+            business_wechat_send_message($user_id, [],[],$message);
+            break;
 
-            case 'slack':
+        case 'slack':
 
-                slack_say_to_smarty_coin("<@$user_id> ".$message);
-                break;
+            if ($type === 'im') {
 
-            default:
+                slack_say_to_channel($channel_id, $message);
+            } elseif ($type === 'channel' || $type === 'group') {
 
-                log_notice($source.' to '.$user_id.': '.$message);
-                break;
+                slack_say_to_channel($channel_id, "<@$user_id> ".$message);
+            }
+            break;
+
+        default:
+
+            log_notice($source.' to '.$user_id.': '.$message);
+            break;
         }
     });/*}}}*/
 
@@ -35,7 +41,7 @@ command('dialogue:operator', '启动接线员', function ()
         dialogue_say($user_id, "不懂 '$message'");
     });/*}}}*/
 
-    dialogue_topic_match_extension_action(function ($content, $topics) {
+    dialogue_topic_match_extension_action(function ($content, $topics) {/*{{{*/
 
         foreach ($topics as $topic) {
 
@@ -46,12 +52,7 @@ command('dialogue:operator', '启动接线员', function ()
         }
 
         return [false, []];
-//        $score = baidu_ai_nlp_simnet($content, $topic);
-//        return [
-//            $score > 0.7,
-//            [],
-//        ];
-    });
+    });/*}}}*/
 
     dialogue_watch($config_key, $memory_limit);
 });/*}}}*/

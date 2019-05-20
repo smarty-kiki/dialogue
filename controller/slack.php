@@ -18,8 +18,6 @@ if_post('/slack/event', function ()
 
         otherwise(! isset($event['bot_id']));
 
-        /**kiki*/error_log(print_r($event, true)."\n", 3, '/tmp/error_user.log');
-
         switch ($event['type']) {
 
             case 'app_mention':
@@ -27,8 +25,22 @@ if_post('/slack/event', function ()
                 $message = str_replace('<@UF85D4HEK> ', '', $event['text']);
 
                 $reply_message = dialogue_push(dialogue_user_info(
-                    $event['user'], 0, 'slack'
+                    $event['user'], $event['channel'], $event['channel_type'], 'slack'
                 ), $message);
+
+                break;
+
+            case 'message':
+
+                if (! isset($event['subtype'])) {
+
+                    if ($event['channel_type'] === 'im') {
+
+                        $reply_message = dialogue_push(dialogue_user_info(
+                            $event['user'], $event['channel'], $event['channel_type'], 'slack'
+                        ), $event['text']);
+                    }
+                }
 
                 break;
         }

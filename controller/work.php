@@ -22,7 +22,7 @@ if_post('/work/receive', function ()
     case 'text':
 
         $reply_message = dialogue_push(dialogue_user_info(
-            $message['user_id'], 0, 'business_wechat'
+            $message['user_id'], 0, 'im', 'business_wechat'
         ), $message['content'], true);
 
         list($user_id) = list_dialogue_user_info($reply_message['user_info']);

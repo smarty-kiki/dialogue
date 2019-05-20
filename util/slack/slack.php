@@ -1,8 +1,18 @@
 <?php
 
-function slack_say_to_smarty_coin($message)
+function slack_say_to_channel($channel, $message, $attachments = [])
 {
-    return remote_post('https://hooks.slack.com/services/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', json_encode([
-        'text' => $message
-    ]), 10);
+    $config = config('slack');
+
+    $data = [
+        'token' => $config['bot_token'],
+        'channel' => $channel,
+        'text' => $message,
+    ];
+
+    if ($attachments) {
+        $data['attachments'] = json_encode($attachments);
+    }
+
+    return remote_post('https://slack.com/api/chat.postMessage', $data, 10);
 }
