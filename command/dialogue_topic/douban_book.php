@@ -1,9 +1,10 @@
 <?php
 
 dialogue_topic([
+    '帮我查本书',
     '*这本书怎么样',
     '*在豆瓣图书的信息'
-], function ($user_info, $content, $time, $book_query) {/*{{{*/
+], function ($user_info, $content, $time, $book_query = '') {/*{{{*/
 
     $book_query = trim($book_query);
 
