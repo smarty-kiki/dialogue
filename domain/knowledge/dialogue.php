@@ -22,7 +22,7 @@ function list_dialogue_user_info($user_info)
 
 dialogue_user_tube_string_action(function ($user_info) {
 
-    list($user_id, $channel_id, $source, $type) = list_dialogue_user_info($user_info);
+    list($user_id, $channel_id, $type, $source) = list_dialogue_user_info($user_info);
 
     if ($type === 'im') {
         return $source.'_u_'.$user_id;

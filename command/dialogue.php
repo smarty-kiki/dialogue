@@ -9,33 +9,34 @@ command('dialogue:operator', '启动接线员', function ()
 
     dialogue_async_send_action(function ($user_info, $message) {/*{{{*/
 
-        /**kiki*/error_log(print_r($user_info, true)."\n", 3, '/tmp/error_user.log');
-        /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
-
         list($user_id, $channel_id, $type, $source) = list_dialogue_user_info($user_info);
+
+        /**kiki*/error_log(print_r($user_id, true)."\n", 3, '/tmp/error_user.log');
+        /**kiki*/error_log(print_r($channel_id, true)."\n", 3, '/tmp/error_user.log');
+        /**kiki*/error_log(print_r($type, true)."\n", 3, '/tmp/error_user.log');
+        /**kiki*/error_log(print_r($source, true)."\n", 3, '/tmp/error_user.log');
+        /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
 
         switch ($source) {
 
-        case 'business_wechat':
+            case 'business_wechat':
 
-            business_wechat_send_message($user_id, [],[],$message);
-            break;
+                business_wechat_send_message($user_id, [],[],$message);
+                break;
 
-        case 'slack':
+            case 'slack':
 
-            if ($type === 'im') {
+                if ($type === 'im') {
+                    slack_say_to_channel($channel_id, $message);
+                } elseif ($type === 'channel' || $type === 'group') {
+                    slack_say_to_channel($channel_id, "<@$user_id> ".$message);
+                }
+                break;
 
-                slack_say_to_channel($channel_id, $message);
-            } elseif ($type === 'channel' || $type === 'group') {
+            default:
 
-                slack_say_to_channel($channel_id, "<@$user_id> ".$message);
-            }
-            break;
-
-        default:
-
-            log_notice($source.' to '.$user_id.': '.$message);
-            break;
+                log_notice($source.' to '.$user_id.': '.$message);
+                break;
         }
     });/*}}}*/
 
