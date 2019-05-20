@@ -41,18 +41,18 @@ command('dialogue:operator', '启动接线员', function ()
         dialogue_say($user_id, "不懂 '$message'");
     });/*}}}*/
 
-    dialogue_topic_match_extension_action(function ($content, $topics) {/*{{{*/
-
-        foreach ($topics as $topic) {
-
-            log_notice($content.' - '.$topic);
-            if ($topic === '测试正则' && $content === 'test') {
-                return [true, []];
-            }
-        }
-
-        return [false, []];
-    });/*}}}*/
+//   dialogue_topic_match_extension_action(function ($content, $topics) {/*{{{*/
+//
+//       foreach ($topics as $topic) {
+//
+//           log_notice($content.' - '.$topic);
+//           if ($topic === '测试正则' && $content === 'test') {
+//               return [true, []];
+//           }
+//       }
+//
+//       return [false, []];
+//   });/*}}}*/
 
     dialogue_watch($config_key, $memory_limit);
 });/*}}}*/
