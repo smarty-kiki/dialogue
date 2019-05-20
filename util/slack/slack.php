@@ -1,6 +1,6 @@
 <?php
 
-define('SLACK_CHANNEL_COIN', 'DF6U9THPE');
+define('SLACK_CHANNEL_COIN', 'G6SKN128J');
 define('SLACK_BOT_USER_ID', 'UJGQ7GKLK');
 
 function slack_say_to_channel($channel, $message, $attachments = [])
