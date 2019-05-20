@@ -1,6 +1,7 @@
 <?php
 
 define('SLACK_CHANNEL_COIN', 'DF6U9THPE');
+define('SLACK_BOT_USER_ID', 'UJGQ7GKLK');
 
 return [
 
