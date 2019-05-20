@@ -20,21 +20,9 @@ command('dialogue:operator', '启动接线员', function ()
 
             case 'slack':
 
-                    /**kiki*/error_log(print_r($user_id, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($channel_id, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($type, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($source, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
-
                 if ($type === 'im') {
                     slack_say_to_channel($channel_id, $message);
                 } else {
-
-                    /**kiki*/error_log(print_r($user_id, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($channel_id, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($type, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($source, true)."\n", 3, '/tmp/error_user.log');
-                    /**kiki*/error_log(print_r($message, true)."\n", 3, '/tmp/error_user.log');
                     slack_say_to_channel($channel_id, "<@$user_id> ".$message);
                 }
                 break;
