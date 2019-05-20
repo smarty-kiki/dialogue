@@ -24,7 +24,7 @@ if_post('/slack/event', function ()
 
             case 'app_mention':
 
-                $message = str_replace('<@'.SLACK_BOT_USER_ID.'> ', '', $event['text']);
+                $message = trim(str_replace('<@'.SLACK_BOT_USER_ID.'>', '', $event['text']));
 
                 $reply_message = dialogue_push(dialogue_user_info(
                     $event['user'], $event['channel'], 'group', 'slack'
