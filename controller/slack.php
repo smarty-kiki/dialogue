@@ -16,9 +16,9 @@ if_post('/slack/event', function ()
 
         $event = input_json('event');
 
-        otherwise(! isset($event['bot_id']));
-
-        /**kiki*/error_log(print_r($event, true)."\n", 3, '/tmp/error_user.log');
+        if (isset($event['bot_id'])) {
+            return [];
+        }
 
         switch ($event['type']) {
 
