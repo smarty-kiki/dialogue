@@ -8,8 +8,6 @@ dialogue_topic([
 
     $message = dialogue_ask_and_wait($user_id, '好的，发我 URL 吧', '/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/');
 
-    /**kiki*/error_log(strip_tags(print_r($message, true))."\n", 3, "/tmp/error_user.log");
-
     $html = remote_get($message['content']);
 
     if ($html) {

@@ -16,6 +16,8 @@ if_post('/slack/event', function ()
 
         $event = input_json('event');
 
+        log_module('slack', 'EVENT '.json_encode($event, JSON_UNESCAPED_UNICODE));
+
         if (isset($event['bot_id'])) {
             return [];
         }
