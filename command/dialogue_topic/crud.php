@@ -92,7 +92,7 @@ dialogue_topic([
             ends_with($column_name, '时间') ||
             ends_with($column_name, '时间点')
         ) {
-            $message = dialogue_ask_and_wait($user_info, '好的，'.$column_name.'是日期 (精确到日的) 还是时间 (精确到秒的)？');
+            $message = dialogue_ask_and_wait($user_info, '好的，'.$column_name.'是日期还是时间？');
             if (! $message) return;
             $answer_str = $message['content'];
 
@@ -112,7 +112,7 @@ dialogue_topic([
         $entity_structs[] = $entity_struct;
     }
 
-    $last_confirm_message = sprintf('好的，我复述一下，%s 有 %s %s 个字段。没问题吧？', $entity_name, implode('、', array_get($entity_structs, '*.display_name')), count($entity_structs));
+    $last_confirm_message = sprintf('好的，我复述一下，%s有%s %s 个字段。没问题吧？', $entity_name, implode('、', array_get($entity_structs, '*.display_name')), count($entity_structs));
 
     $message = dialogue_ask_and_wait($user_info, $last_confirm_message);
     $confirm = $message['content'];
