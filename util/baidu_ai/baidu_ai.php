@@ -316,8 +316,6 @@ function nlp_topic_about_action($verbs, $nouns)
 
         $res = baidu_ai_nlp_lexer($content);
 
-        log_module('nlp', json($res));
-
         if ($res['items']) {
 
             $verb_matched = false;
