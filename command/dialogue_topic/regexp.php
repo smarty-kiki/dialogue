@@ -1,12 +1,6 @@
 <?php
 
-dialogue_topic([
-    '测试正则',
-    '正则测试',
-    '正则实验',
-    '正则调试',
-    '正则验证',
-], function ($user_info, $content, $time) {/*{{{*/
+dialogue_topic(baidu_ai_topic_about_action(['测试', '实验', '调试', '验证'], ['正则']) , function ($user_info, $content, $time) {/*{{{*/
 
     $pattern = $subject = null;
 
