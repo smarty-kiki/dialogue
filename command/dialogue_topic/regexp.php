@@ -1,6 +1,6 @@
 <?php
 
-dialogue_topic(nlp_topic_about_action(['测试', '实验', '调试', '验证'], ['正则']) , function ($user_info, $content, $time) {/*{{{*/
+dialogue_topic(nlp_v_n_checker(['测试', '实验', '调试', '验证'], ['正则']) , function ($user_info, $content, $time) {/*{{{*/
 
     $pattern = $subject = null;
 
