@@ -275,7 +275,7 @@ function baidu_ai_nlp_lexer($text, $with_str = false)
     return [];
 }/*}}}*/
 
-function baidu_ai_topic_about_action($verbs, $nouns)
+function nlp_topic_about_action($verbs, $nouns)
 {/*{{{*/
     if ($verbs !== '*') {
         $verbs = array_flip((array) $verbs);
@@ -315,6 +315,8 @@ function baidu_ai_topic_about_action($verbs, $nouns)
     return function ($content) use ($verbs, $nouns, $verb_pos_maps, $noun_pos_maps, $ne_maps) {
 
         $res = baidu_ai_nlp_lexer($content);
+
+        log_module('nlp', json($res));
 
         if ($res['items']) {
 
