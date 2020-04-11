@@ -6,7 +6,7 @@ define('WECHAT_APP_SECRET', '88c47a8c4977f2c2ff01c0c32ce7583e');
 define('WECHAT_TOKEN', 'HelloWorld');
 define('WECHAT_ENCODING_AES_KEY', 'YknZQ8opfJ9T8gktkmPzeh26FUgo74rpi3LJO4uQH9L');
 
-define('WECHAT_API_DOMAIN', 'https://api.weixin.qq.com');
+define('WECHAT_API_DOMAIN', 'https://ip.yao-yang.cn/wechat/');
 
 function _wechat_access_token()
 {/*{{{*/
