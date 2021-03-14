@@ -14,7 +14,13 @@ function _baidu_ai_post($url, $data)
         return $cached[$identifier];
     }
 
-    return $cached[$identifier] = remote_post_json($url, $data);
+    $res = remote_post_json($url, $data);
+
+    log_module('baidu_ai', $url);
+    log_module('baidu_ai', json($data));
+    log_module('baidu_ai', json($res));
+
+    return $cached[$identifier] = $res;
 }/*}}}*/
 
 /**
@@ -251,7 +257,7 @@ function baidu_ai_nlp_lexer($text, $with_str = false)
 
     $res = _baidu_ai_post('https://aip.baidubce.com/rpc/2.0/nlp/v1/lexer?charset=UTF-8&access_token='.$access_token, $post);
 
-    if ($res['items']) {
+    if (isset($res['items'])) {
 
         if ($with_str) {
 
@@ -316,7 +322,7 @@ function nlp_v_n_checker($verbs, $nouns)
 
         $res = baidu_ai_nlp_lexer($content);
 
-        if ($res['items']) {
+        if (isset($res['items'])) {
 
             $verb_matched = false;
             $noun_matched = false;

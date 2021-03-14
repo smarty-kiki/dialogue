@@ -86,5 +86,21 @@ if_post('/wechat/receive', function ()
         wechat_reply_is_typing($from_user_id, false);
 
         return $reply_message_string;
+
+    case 'image':
+
+        wechat_reply_is_typing($from_user_id, true);
+
+        $reply_message = dialogue_push(dialogue_user_info(
+            $from_user_id, 0, 'im', 'wechat'
+        ), '图片抠图:'.$message['pic_url'], true);
+
+        list($user_id) = list_dialogue_user_info($reply_message['user_info']);
+
+        $reply_message_string = wechat_reply_message($user_id, $reply_message['content']);
+
+        wechat_reply_is_typing($from_user_id, false);
+
+        return $reply_message_string;
     }
 });

@@ -1,11 +1,8 @@
 <?php
 
-dialogue_topic([
-    '看一下这块位置怎么样',
-    '看一下租这儿怎么样',
-    '看一下附近怎么样',
-    '看一下这位置好不好'
-], function ($user_info, $content, $time) {/*{{{*/
+dialogue_topic(nlp_v_n_checker(['扫描', '看', '搜索', '评价'], ['位置', '地点', '定位', '地址', '小区']),
+function ($user_info, $content, $time)
+{/*{{{*/
 
     dialogue_say($user_info, '好的，发我个定位');
 

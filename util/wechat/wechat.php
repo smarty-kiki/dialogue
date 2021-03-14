@@ -98,6 +98,15 @@ function wechat_receive_message($msg_signature, $timestamp, $nonce, $openid, $po
                 'url' => (string) $message->Url,
             ],
         ];
+    case 'image':
+        return [
+            'type' => 'link',
+            'message' => [
+                'user_id' => (string) $message->FromUserName,
+                'pic_id' => (string) $message->MediaId,
+                'pic_url' => (string) $message->PicUrl,
+            ],
+        ];
     default:
         return [
             'type' => (string) $message->MsgType,
@@ -147,6 +156,23 @@ function wechat_reply_message($user_id, $content)
         <MsgType><![CDATA[text]]></MsgType>
         <Content><![CDATA[".$content."]]></Content>
     </xml>";
+}/*}}}*/
+
+function wechat_reply_image_message($user_id, $media_id)
+{/*{{{*/
+    static $from_user_id = WECHAT_ID;
+
+    $timestamp = time();
+
+    return "<xml>
+        <ToUserName><![CDATA[".$user_id."]]></ToUserName>
+        <FromUserName><![CDATA[".$from_user_id."]]></FromUserName>
+        <CreateTime>".$timestamp."</CreateTime>
+        <MsgType><![CDATA[image]]></MsgType>
+        <Image>
+        <MediaId><![CDATA[".$media_id."]]></MediaId>
+        </Image>
+        </xml>";
 }/*}}}*/
 
 function wechat_sha1($token, $timestamp, $nonce)
