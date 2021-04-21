@@ -281,6 +281,53 @@ function baidu_ai_nlp_lexer($text, $with_str = false)
     return [];
 }/*}}}*/
 
+/**
+ * 文章标签接口
+ *
+ */
+function baidu_ai_nlp_tag($title, $content)
+{/*{{{*/
+    $access_token = _baidu_ai_access_token();
+
+    $post = json([
+        'title' => $title,
+        'content' => $content,
+    ]);
+
+    $res = _baidu_ai_post('https://aip.baidubce.com/rpc/2.0/nlp/v1/keyword?charset=UTF-8&access_token='.$access_token, $post);
+
+    if (isset($res['items'])) {
+
+        return $res['items'];
+    }
+
+    return [];
+}/*}}}*/
+
+/**
+ * 文章摘要接口
+ *
+ */
+function baidu_ai_nlp_summary($title, $content, $max_summary_len = 300)
+{/*{{{*/
+    $access_token = _baidu_ai_access_token();
+
+    $post = json([
+        'title' => $title,
+        'content' => $content,
+        'max_summary_len' => $max_summary_len,
+    ]);
+
+    $res = _baidu_ai_post('https://aip.baidubce.com/rpc/2.0/nlp/v1/news_summary?charset=UTF-8&access_token='.$access_token, $post);
+
+    if (isset($res['summary'])) {
+
+        return $res['summary'];
+    }
+
+    return [];
+}/*}}}*/
+
 function nlp_v_n_checker($verbs, $nouns)
 {/*{{{*/
     if ($verbs !== '*') {
