@@ -20,5 +20,9 @@ function slack_say_to_channel($channel, $message, $attachments = [])
 
     log_module('slack', 'CHAT '.json_encode($data, JSON_UNESCAPED_UNICODE));
 
-    return remote_post('https://slack.com/api/chat.postMessage', $data, 10);
+    return http([
+        'url' => 'https://slack.com/api/chat.postMessage',
+        'data' => $data,
+        'timeout' => 10,
+    ]);
 }

@@ -14,7 +14,10 @@ function _baidu_ai_post($url, $data)
         return $cached[$identifier];
     }
 
-    $res = remote_post_json($url, $data);
+    $res = http_json([
+        'url' => $url,
+        'data' => $data,
+    ]);
 
     log_module('baidu_ai', $url);
     log_module('baidu_ai', json($data));
@@ -44,7 +47,7 @@ function _baidu_ai_access_token()
 
         if (! $access_token) {
 
-            $info = remote_get_json("https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=$client_id&client_secret=$client_secret");
+            $info = http_json("https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=$client_id&client_secret=$client_secret");
 
             if (array_key_exists('access_token', $info)) {
 

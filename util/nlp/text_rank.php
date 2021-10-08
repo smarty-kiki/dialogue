@@ -2,10 +2,14 @@
 
 function text_rank_get_summary($text)
 {/*{{{*/
-    $res_html = remote_post('https://cws.9sep.org/textrank', http_build_query([
-        'text' => $text,
-        'topk' => 3,
-    ]), 5, 3);
+    $res_html = http_json([
+        'url' => 'https://cws.9sep.org/textrank',
+        'data' => http_build_query([
+            'text' => $text,
+            'topk' => 3,
+        ]),
+        'timeout' => 5,
+    ]);
 
     if ($res_html) {
 

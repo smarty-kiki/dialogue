@@ -8,7 +8,7 @@ dialogue_topic([
 
     $message = dialogue_ask_and_wait($user_info, '好的，发我 URL 吧', '/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/');
 
-    $html = remote_get($message['content']);
+    $html = http($message['content']);
 
     if ($html) {
 

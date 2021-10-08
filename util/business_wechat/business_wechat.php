@@ -20,7 +20,7 @@ function _business_wechat_access_token()
 
         if (! $access_token) {
 
-            $info = remote_get_json("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$corpid&corpsecret=$secret", 3, 3);
+            $info = http_json("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$corpid&corpsecret=$secret");
 
             if (array_key_exists('access_token', $info)) {
 
@@ -40,17 +40,20 @@ function business_wechat_send_message($user_ids, $party_ids, $tag_ids, $content)
 {/*{{{*/
     $access_token = _business_wechat_access_token();
 
-    $res = remote_post_json("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=$access_token", json_encode([
-        'touser' => implode('|', (array) $user_ids),
-        'toparty' => implode('|', (array) $party_ids),
-        'totag' => implode('|', (array) $tag_ids),
-        'msgtype' => "text",
-        'agentid' => 1000002,
-        'text' => [
-            'content' => $content,
-        ],
-        'safe' => 0
-    ]));
+    $res = http_json([
+        'url' => "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=$access_token",
+        'data' => json_encode([
+            'touser' => implode('|', (array) $user_ids),
+            'toparty' => implode('|', (array) $party_ids),
+            'totag' => implode('|', (array) $tag_ids),
+            'msgtype' => "text",
+            'agentid' => 1000002,
+            'text' => [
+                'content' => $content,
+            ],
+            'safe' => 0
+        ]),
+    ]);
 
     return ! $res['errcode'];
 }/*}}}*/
@@ -91,14 +94,14 @@ function business_wechat_get_department()
 {/*{{{*/
     $access_token = _business_wechat_access_token();
 
-    return remote_get_json("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=$access_token");
+    return http_json("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=$access_token");
 }/*}}}*/
 
 function business_wechat_get_department_user_list($department_id)
 {/*{{{*/
     $access_token = _business_wechat_access_token();
 
-    return remote_get_json("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=$access_token&department_id=$department_id&fetch_child=1");
+    return http_json("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=$access_token&department_id=$department_id&fetch_child=1");
 }/*}}}*/
 
 function business_wechat_verify_url($msg_signature, $timestamp, $nonce, $echostr)

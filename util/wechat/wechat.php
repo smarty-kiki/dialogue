@@ -23,7 +23,11 @@ function _wechat_access_token()
 
         if (! $access_token) {
 
-            $info = remote_get_json(WECHAT_API_DOMAIN."/cgi-bin/token?grant_type=client_credential&appid=$app_id&secret=$app_secret", 3, 3);
+            $info = http_json([
+                'url' => WECHAT_API_DOMAIN."/cgi-bin/token?grant_type=client_credential&appid=$app_id&secret=$app_secret",
+                'timeout' => 3,
+                'retry' => 3,
+            ]);
 
             if (array_key_exists('access_token', $info)) {
 
@@ -118,13 +122,16 @@ function wechat_send_message($user_id, $content)
 {/*{{{*/
     $access_token = _wechat_access_token();
 
-    $res = remote_post_json(WECHAT_API_DOMAIN."/cgi-bin/message/custom/send?access_token=$access_token", json_encode([
-        'touser' => $user_id,
-        'msgtype' => "text",
-        'text' => [
-            'content' => $content,
-        ],
-    ]));
+    $res = http_json([
+        'url' => WECHAT_API_DOMAIN."/cgi-bin/message/custom/send?access_token=$access_token",
+        'data' => json_encode([
+            'touser' => $user_id,
+            'msgtype' => "text",
+            'text' => [
+                'content' => $content,
+            ],
+        ]),
+    ]);
 
     return ! $res['errcode'];
 }/*}}}*/
@@ -135,10 +142,13 @@ function wechat_reply_is_typing($user_id, bool $typing)
 
     $command = $typing ? 'Typing': 'CancelTyping';
 
-    $res = remote_post_json(WECHAT_API_DOMAIN."/cgi-bin/message/custom/typing?access_token=$access_token", json_encode([
-        'touser' => $user_id,
-        'command' => $command,
-    ]), 3, 3);
+    $res = http_json([
+        'url' => WECHAT_API_DOMAIN."/cgi-bin/message/custom/typing?access_token=$access_token",
+        'data' => json_encode([
+            'touser' => $user_id,
+            'command' => $command,
+        ]),
+    ]);
 
     return ! $res['errcode'];
 }/*}}}*/
